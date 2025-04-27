@@ -1,16 +1,16 @@
 //DDA Line
 #include <iostream>
 #include <GL/glut.h>
-using namespace std ;
-int xa, ya, xb, yb;
+using namespace std;
+int x1, y1, x2, y2;
 int lineType;
-int Round(float a) {
+int Round(float a) { //Casting 
     return (int)(a + 0.5);
 }
-void ddaline(int xa, int ya, int xb, int yb, int lineType) {
+void ddaline(int x1, int y1, int x2, int y2, int lineType) {
     int dx, dy, steps;
-    dx = xb - xa;
-    dy = yb - ya;
+    dx = x2 - x1;
+    dy = y2 - y1;
     if (abs(dx) > abs(dy)) {
         steps = abs(dx);
     } else {
@@ -19,8 +19,8 @@ void ddaline(int xa, int ya, int xb, int yb, int lineType) {
     float xincrement, yincrement;
     xincrement = dx / (float)(steps);
     yincrement = dy / (float)(steps);
-    float x = xa;
-    float y = ya;
+    float x = x1;
+    float y = y1;
     glBegin(GL_POINTS);
     glVertex2d(Round(x), Round(y));
     for(int k = 0; k < steps; k++) {
@@ -54,14 +54,14 @@ void ddaline(int xa, int ya, int xb, int yb, int lineType) {
 void mouse1(int button, int state, int x, int y) {
     y = 480 - y;
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
-        xa = x;
-        ya = y;
+        x1 = x;
+        y1 = y;
     }
     if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
-        xb = x;
-        yb = y;
+        x2 = x;
+        y2 = y;
         glColor3f(1.0, 0.0, 0.0);
-        ddaline(xa, ya, xb, yb, lineType);
+        ddaline(x1, y1, x2, y2, lineType);
     }
 }
 void Draw() {
